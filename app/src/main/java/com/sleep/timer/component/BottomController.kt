@@ -1,6 +1,7 @@
 package com.sleep.timer.component
 
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
@@ -22,7 +23,8 @@ import com.sleep.timer.status.InitialStatus
 @Composable
 fun BottomController(status: IStatus, onStartClick: () -> Unit, onResetClick: () -> Unit) {
     val enable = status !is InitialStatus
-    Row {
+    Row(Modifier.padding(bottom = 50.dp)) {
+        // reset button
         IconButton(
             icon = Icons.Rounded.Refresh,
             enable = enable,
@@ -30,6 +32,9 @@ fun BottomController(status: IStatus, onStartClick: () -> Unit, onResetClick: ()
             backgroundColor = if (enable) Color.White else Color(0xFFF7F8FA),
             onclick = onResetClick
         )
+
+        Spacer(modifier = Modifier.size(40.dp))
+
         // play button
         IconButton(
             icon = if (status.isStart()) Icons.Rounded.Pause else Icons.Rounded.PlayArrow,
@@ -55,6 +60,7 @@ fun IconButton(
         shape = CircleShape,
         enabled = enable,
         onClick = onclick,
+        elevation = 3.dp,
     ) {
         Icon(
             imageVector = icon,

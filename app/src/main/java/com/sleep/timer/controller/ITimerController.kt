@@ -1,4 +1,4 @@
-package com.sleep.timer.viewmodel
+package com.sleep.timer.controller
 
 interface ITimerController {
     fun start()

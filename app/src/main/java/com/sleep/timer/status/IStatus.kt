@@ -11,4 +11,6 @@ interface IStatus {
     fun startButtonEnabled(): Boolean {
         return true
     }
+
+    fun progress(): Float
 }

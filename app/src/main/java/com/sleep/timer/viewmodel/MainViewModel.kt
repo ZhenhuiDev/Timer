@@ -4,6 +4,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import com.sleep.timer.controller.AnimatorTimerController
+import com.sleep.timer.controller.ITimerController
 import com.sleep.timer.status.IStatus
 import com.sleep.timer.status.InitialStatus
 
@@ -13,6 +15,8 @@ class MainViewModel : ViewModel() {
 
     // second
     var timeLeft by mutableStateOf(0)
+
+    var timeLeftWithSpeed by mutableStateOf(0f)
     var status: IStatus by mutableStateOf(InitialStatus())
     val timerController: ITimerController = AnimatorTimerController(this)
 
@@ -20,12 +24,14 @@ class MainViewModel : ViewModel() {
         super.onCleared()
         totalTime = 0
         timeLeft = 0
+        timeLeftWithSpeed = 0f
         timerController.reset()
     }
 
     fun startTemp() {
         totalTime = 10
-        timeLeft = 0
+        timeLeft = 10
+        timeLeftWithSpeed = 10f
         timerController.start()
     }
 }

@@ -14,4 +14,8 @@ class StartedStatus(private val viewModel: MainViewModel) : IStatus {
     override fun clickResetButton() {
         viewModel.timerController.reset()
     }
+
+    override fun progress(): Float {
+        return viewModel.timeLeftWithSpeed.toFloat() / viewModel.totalTime * 360
+    }
 }

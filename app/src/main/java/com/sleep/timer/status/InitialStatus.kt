@@ -20,4 +20,8 @@ class InitialStatus : IStatus {
     override fun startButtonEnabled(): Boolean {
         return false
     }
+
+    override fun progress(): Float {
+        return 0f
+    }
 }
