@@ -27,10 +27,6 @@ class AnimatorTimerController(private val viewModel: MainViewModel) : ITimerCont
             valueAnimator?.addUpdateListener {
                 viewModel.timeLeft = it.animatedValue as Int / SPEED
                 viewModel.timeLeftWithSpeed = it.animatedValue as Int / SPEED.toFloat()
-                Log.d(
-                    "AnimatorTimerController",
-                    "viewModel.timeLeft = ${viewModel.timeLeft}, viewModel.timeLeftWithSpeed = ${viewModel.timeLeftWithSpeed}"
-                )
             }
             valueAnimator?.addListener(object : AnimatorListenerAdapter() {
                 override fun onAnimationEnd(animation: Animator?) {
@@ -70,7 +66,7 @@ class AnimatorTimerController(private val viewModel: MainViewModel) : ITimerCont
             viewModel.totalTime = 0
             viewModel.timeLeft = 0
             viewModel.timeLeftWithSpeed = 0f
-            viewModel.status = InitialStatus()
+            viewModel.status = InitialStatus(viewModel)
         }
     }
 }

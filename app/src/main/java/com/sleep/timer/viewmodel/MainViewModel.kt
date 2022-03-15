@@ -17,7 +17,7 @@ class MainViewModel : ViewModel() {
     var timeLeft by mutableStateOf(0)
 
     var timeLeftWithSpeed by mutableStateOf(0f)
-    var status: IStatus by mutableStateOf(InitialStatus())
+    var status: IStatus by mutableStateOf(InitialStatus(this))
     val timerController: ITimerController = AnimatorTimerController(this)
 
     override fun onCleared() {

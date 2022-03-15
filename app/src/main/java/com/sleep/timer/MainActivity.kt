@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
-import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Alignment
@@ -25,6 +24,8 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.sleep.timer.component.BottomController
 import com.sleep.timer.component.Clock
+import com.sleep.timer.component.TimePicker
+import com.sleep.timer.status.InitialStatus
 import com.sleep.timer.ui.theme.TimerTheme
 import com.sleep.timer.viewmodel.MainViewModel
 
@@ -60,15 +61,17 @@ fun TimerApp() {
             fontWeight = FontWeight.Medium,
             fontFamily = FontFamily.SansSerif
         )
-        // TODO time picker
         Column(Modifier.weight(1f)) {
-            Spacer(modifier = Modifier.size(20.dp))
-            TextButton(onClick = { viewModel.startTemp() }) {
-                Text(text = "start")
+            if (viewModel.status is InitialStatus) {
+                TimePicker(viewModel.totalTime, onTimeChange = {
+                    viewModel.totalTime = it
+                    viewModel.timeLeft = it
+                    viewModel.timeLeftWithSpeed = it.toFloat()
+                })
             }
         }
         BottomController(
-            status = viewModel.status,
+            viewModel = viewModel,
             onStartClick = {
                 viewModel.status.clickStartButton()
             },
@@ -89,6 +92,6 @@ fun DefaultPreview() {
 fun Int.toFormatTime(): String {
     val seconds = this % 60
     val minutes = (this / 60) % 60
-    val hours = (this / 60 / 60) % 60
+    val hours = this / 60 / 60
     return String.format("%02d:%02d:%02d", hours, minutes, seconds)
 }

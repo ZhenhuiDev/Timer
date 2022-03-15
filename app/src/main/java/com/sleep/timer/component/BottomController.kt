@@ -19,11 +19,12 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import com.sleep.timer.status.IStatus
 import com.sleep.timer.status.InitialStatus
+import com.sleep.timer.viewmodel.MainViewModel
 
 @Composable
-fun BottomController(status: IStatus, onStartClick: () -> Unit, onResetClick: () -> Unit) {
-    val enable = status !is InitialStatus
+fun BottomController(viewModel: MainViewModel, onStartClick: () -> Unit, onResetClick: () -> Unit) {
     Row(Modifier.padding(bottom = 50.dp)) {
+        val enable = viewModel.totalTime != 0
         // reset button
         IconButton(
             icon = Icons.Rounded.Refresh,
@@ -37,7 +38,7 @@ fun BottomController(status: IStatus, onStartClick: () -> Unit, onResetClick: ()
 
         // play button
         IconButton(
-            icon = if (status.isStart()) Icons.Rounded.Pause else Icons.Rounded.PlayArrow,
+            icon = if (viewModel.status.isStart()) Icons.Rounded.Pause else Icons.Rounded.PlayArrow,
             enable = enable,
             iconColor = if (enable) Color.White else Color(0xFFC2D1F5),
             backgroundColor = if (enable) Color(0xFF225AEE) else Color(0xFF9AB6F1),
